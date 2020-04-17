@@ -4,6 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:production": "ng serve --prod",
+    "build:shell":"ng run app-shell:app-shell",
+    "build:shell:prod": "ng run app-shell:app-shell:production",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -18,6 +21,7 @@
     "@angular/forms": "~9.0.0",
     "@angular/platform-browser": "~9.0.0",
     "@angular/platform-browser-dynamic": "~9.0.0",
+    "@angular/platform-server": "~9.0.0",
     "@angular/router": "~9.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
