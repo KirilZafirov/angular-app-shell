@@ -1,0 +1,13 @@
+<cdk-virtual-scroll-viewport itemSize="100" class="fact-scroll-viewport">
+  <li *cdkVirtualFor="let option of options">
+    <ng-template #defaultTemplate>
+      <a class="dropdown-item">
+        {{ option?.text || option }}
+      </a>
+    </ng-template>
+
+    <ng-container [ngTemplateOutlet]="optionTemplateRef || defaultTemplate"
+      [ngTemplateOutletContext]="{ $implicit: option, index: '1'}">
+    </ng-container>
+  </li>
+</cdk-virtual-scroll-viewport>

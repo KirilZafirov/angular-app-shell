@@ -1,5 +1,5 @@
 import { Fact } from './fact.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ContentChild, Input } from '@angular/core';
 import { FactService } from './fact.service';
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
@@ -12,10 +12,10 @@ import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 export class FactScrollerComponent implements OnInit {
 
   dataSource: FactsDataSource;
-  
+
   constructor(private factService: FactService) {
     this.dataSource = new FactsDataSource(factService);
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -23,22 +23,22 @@ export class FactScrollerComponent implements OnInit {
 }
 
 export class FactsDataSource extends DataSource<Fact | undefined> {
- 
+
   private cachedFacts = Array.from<Fact>({ length: 0 });
   private dataStream = new BehaviorSubject<(Fact | undefined)[]>(this.cachedFacts);
   private subscription = new Subscription();
 
   private pageSize = 10;
   private lastPage = 0;
-  
-  constructor(private factService: FactService){
+
+  constructor(private factService: FactService) {
     super();
     this._fetchFactPage();
   }
 
   connect(collectionViewer: CollectionViewer): Observable<(Fact | undefined)[] | ReadonlyArray<Fact | undefined>> {
-    this.subscription.add(collectionViewer.viewChange.subscribe(range => { 
-      
+    this.subscription.add(collectionViewer.viewChange.subscribe(range => {
+
       const currentPage = this._getPageForIndex(range.end);
 
       if (currentPage && range) {
@@ -58,7 +58,7 @@ export class FactsDataSource extends DataSource<Fact | undefined> {
   }
 
 
-   private _fetchFactPage(): void {
+  private _fetchFactPage(): void {
     for (let i = 0; i < this.pageSize; ++i) {
       this.factService.getRandomFact().subscribe(res => {
         this.cachedFacts = this.cachedFacts.concat(res);

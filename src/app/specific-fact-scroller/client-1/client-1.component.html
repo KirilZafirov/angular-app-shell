@@ -1,0 +1,13 @@
+ 
+<app-shell-fact [options]="dataSource"> 
+    <ng-template #optionTemplate let-fact let-id=index>
+      <div *ngIf="fact" class="fact-item">
+        <div class="fact-date">{{ fact.year }}</div>
+        <div class="fact-text">{{ fact.text }}</div>
+      </div>
+      <div *ngIf="!fact">
+        Loading ...
+      </div>
+    </ng-template>
+</app-shell-fact>
+ 
