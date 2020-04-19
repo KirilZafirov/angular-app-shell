@@ -1,5 +1,5 @@
 <cdk-virtual-scroll-viewport itemSize="100" class="fact-scroll-viewport">
-  <li *cdkVirtualFor="let option of options">
+  <li *cdkVirtualFor="let option of options" (click)="selectOption(option)">
     <ng-template #defaultTemplate>
       <a class="dropdown-item">
         {{ option?.text || option }}

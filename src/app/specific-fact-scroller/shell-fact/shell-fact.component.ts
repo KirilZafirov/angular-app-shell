@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, ContentChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, ContentChild, TemplateRef, Output } from '@angular/core';
 
 @Component({
   selector: 'app-shell-fact',
@@ -11,13 +11,18 @@ export class ShellFactComponent implements OnInit {
  
   @ContentChild('optionTemplate', {static: false}) optionTemplateRef: TemplateRef<any>;
 
+  @Output() selectionChanged = new EventEmitter<any>();
+  
   constructor() {
 
   }
   
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+  ngOnInit(): void { 
     console.log(this.options);
+  }
+
+
+  selectOption(option) { 
+    this.selectionChanged.emit(option);
   }
 }

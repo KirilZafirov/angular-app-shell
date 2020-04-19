@@ -18,4 +18,11 @@ export class ClientOneComponent implements OnInit {
   ngOnInit() {
   }
  
+  reactToSelection(event) {
+    console.log(event)
+  }
+
+  clickedYear(text) {
+    console.log(text)
+  }
 }
