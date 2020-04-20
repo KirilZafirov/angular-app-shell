@@ -1,8 +1,9 @@
 import { DialogComponent } from './dialog/dialog.component';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { SwPush } from '@angular/service-worker'; 
 import { MatDialog , MatDialogConfig , MatDialogRef} from '@angular/material/dialog';
 
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -19,10 +20,28 @@ export class AppComponent {
    */
   constructor(
     private dialog: MatDialog ,
-    private swPush: SwPush) {
+    private swPush: SwPush,
+    @Inject(DOCUMENT) private document: Document) {
      
   }
+  
+  loadStyle(styleName: string) {
+    const head = this.document.getElementsByTagName('head')[0];
 
+    let themeLink = this.document.getElementById(
+      'client-theme'
+    ) as HTMLLinkElement;
+    if (themeLink) {
+      themeLink.href = styleName;
+    } else {
+      const style = this.document.createElement('link');
+      style.id = 'client-theme';
+      style.rel = 'stylesheet';
+      style.href = `${styleName}`;
+
+      head.appendChild(style);
+    }
+  }
   openDialog() {
     const dialogConfig = new MatDialogConfig();
 
